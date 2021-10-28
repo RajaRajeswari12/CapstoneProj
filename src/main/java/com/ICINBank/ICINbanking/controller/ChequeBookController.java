@@ -37,9 +37,7 @@ public class ChequeBookController {
 	
 	@GetMapping(value="/requestChequeBook")
 	public ModelAndView chequeRequestPage() {
-		
-	
-		
+				
 		ModelAndView ChequeRequestMV = new ModelAndView();
 		ChequeRequestMV.setViewName("chequeBkRequest");
 		ChequeRequestMV.addObject("chequeBook",new ChequeBook());

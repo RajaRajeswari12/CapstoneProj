@@ -9,5 +9,7 @@ import com.ICINBank.ICINbanking.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	
 	public Customer getCustomerByUserName(String userName);
+	
+
 
 }

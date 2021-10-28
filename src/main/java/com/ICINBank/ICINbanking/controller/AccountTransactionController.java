@@ -79,7 +79,7 @@ public class AccountTransactionController {
 	}
 	
 	@GetMapping("/accountTransactionDetail")
-	public String getCurrentAccountTrans(Model model,@RequestParam("accType") String accType,HttpServletRequest request) {
+	public String getAccountTransaction(Model model,@RequestParam("accType") String accType,HttpServletRequest request) {
 		Customer cust = customerService.getCustomerBySessionVar(request);
 		int TransactionAccNo = 0;
 		String returnResult = null;

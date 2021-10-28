@@ -1,6 +1,8 @@
 package com.ICINBank.ICINbanking.serviceImpl;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -15,10 +17,16 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public User createNewUser(User user) {
-		System.out.println(user.getUserName()+ "^^^^^" + user.toString());
+		
+		log.info("Creating NEW USER");
+		user.setRole("User");
+		user.setActive(true);
+		
 		return userRepo.save(user);
 	}
 
@@ -29,6 +37,7 @@ public class UserServiceImpl implements UserService{
 
 		if(getValidUser != null) {
 			if(!getValidUser.getPassword().equals(user.getPassword())){
+				log.info("Inside invalid Password");
 				errorMessage = "Invalid password. Try Again with correct credentials.";
 			}else if(getValidUser.getRole() == null) {
 				errorMessage = "Authorization Not given";
@@ -55,6 +64,7 @@ public class UserServiceImpl implements UserService{
 
 		if(getValidUser != null) {
 			if(!getValidUser.getPassword().equals(user.getPassword())){
+				
 				errorMessage = "Invalid password. Try Again with correct credentials.";
 			}else if(getValidUser.getRole() == null) {
 				errorMessage = "Authorization Not given";

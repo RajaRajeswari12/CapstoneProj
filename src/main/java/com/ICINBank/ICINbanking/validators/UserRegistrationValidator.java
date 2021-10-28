@@ -41,6 +41,7 @@ private CustomerService customerService;
 			errors.rejectValue("user.userName", "Duplicate.adminUser.adminUserName");
 		}
 		
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors,"user.password" , "NotEmpty");
 		
 		if(customerReg.getUser().getPassword().length() < 8 || customerReg.getUser().getPassword().length() > 24) {

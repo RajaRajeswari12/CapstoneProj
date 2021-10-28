@@ -3,6 +3,8 @@ package com.ICINBank.ICINbanking.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ public class UserController {
 	@Autowired
 	private CustomerService customerService;
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value = "/index",method=RequestMethod.GET)
 	public ModelAndView userLoginPage(Model model) {
@@ -65,8 +68,11 @@ public class UserController {
 
 	@PostMapping(value="/login")
 	public String adminLogin(@ModelAttribute("user") User user,BindingResult bindingResult,HttpServletRequest request) {
+		logger.info("Admin Login");
+		
 		HttpSession session = request.getSession();
 		userService.authenticateAdmin(user, bindingResult);
+		logger.info("After Authentication" + bindingResult.hasErrors());
 		if(bindingResult.hasErrors()) {
 			return "adminLogin";
 		}else {

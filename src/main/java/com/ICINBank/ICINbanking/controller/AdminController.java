@@ -2,6 +2,8 @@ package com.ICINBank.ICINbanking.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ public class AdminController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping("/viewUserDetail")
 	public String gotoUserDetail(Model model) {
@@ -37,13 +41,13 @@ public class AdminController {
 		model.addAttribute("totalRecords",page.getTotalElements());
 		model.addAttribute("listOfUserDetail",listOfUserDetail);
 		
-		return "viewUserDetails";
+		return "viewListUserDetail";
 	}
 	
 	@GetMapping("/userAccountHandler")
 	public String enableOrDisableUserAccount(@RequestParam(value="id") int id,@RequestParam(value="pageNo") int pageNo,Model model) {
 		
-//		log.info("Entered Cheque Book Approval Function");
+		logger.info("Entered enableOrDisableUserAccount");
 		
 		customerService.enableDisableUserAcc(id);
 		

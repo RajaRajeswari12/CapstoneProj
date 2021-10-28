@@ -1,5 +1,7 @@
 package com.ICINBank.ICINbanking.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,10 +26,13 @@ public class ChequeBookServiceImpl implements ChequeBookService {
 
 	@Override
 	public ChequeBook chequeBookApproval(int chequeBookId) {
-		ChequeBook chequeBook = chequeBookRepo.getById(chequeBookId);
-		chequeBook.setStatus("approved");
-		
-		return chequeBookRepo.save(chequeBook);
+		Optional<ChequeBook> chequeBook = chequeBookRepo.findById(chequeBookId);
+		ChequeBook chkBook = null;
+		if(chequeBook != null) {
+			chkBook = 	chequeBook.get();
+			chkBook.setStatus("approved");
+		}
+		return chequeBookRepo.save(chkBook);
 	}
 
 	@Override

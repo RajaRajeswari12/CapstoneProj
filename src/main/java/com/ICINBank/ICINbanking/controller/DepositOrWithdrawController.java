@@ -31,13 +31,11 @@ public class DepositOrWithdrawController {
 	
 	@Autowired
 	private DepositOrWithdrawService depositOrWithdrawService;
-	
-
-	
+		
 	private Logger log = LoggerFactory.getLogger(DepositOrWithdrawController.class);
 	
 	@GetMapping("/depositOrWithdrawFund")
-	public ModelAndView goToDepositPage(@RequestParam("actionType") String actionType) {
+	public ModelAndView goToDepositOrWithDrawPage(@RequestParam("actionType") String actionType) {
 		log.info("Inside GoToDepositPage");
 		ModelAndView depositMV = new ModelAndView();
 		depositMV.addObject("depositOrWithdrawPOJO", new DepositOrWithdrawPOJO());		
@@ -46,7 +44,7 @@ public class DepositOrWithdrawController {
 	}
 	
 	@PostMapping("/depositOrWithdrawFund")
-	public ModelAndView depositPage(@ModelAttribute("depositOrWithdrawPOJO") DepositOrWithdrawPOJO depositOrWithdrawPOJO,BindingResult bindingResult,HttpServletRequest request) {
+	public ModelAndView depositOrWithdrawPage(@ModelAttribute("depositOrWithdrawPOJO") DepositOrWithdrawPOJO depositOrWithdrawPOJO,BindingResult bindingResult,HttpServletRequest request) {
 		log.info("Initiated the Funds Transfer Function" );
 		ModelAndView depositMV = new ModelAndView();
 		Customer cust = customerService.getCustomerBySessionVar(request);

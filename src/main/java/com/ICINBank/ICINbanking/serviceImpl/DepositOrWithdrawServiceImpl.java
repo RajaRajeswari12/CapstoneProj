@@ -64,7 +64,10 @@ public class DepositOrWithdrawServiceImpl implements DepositOrWithdrawService {
 
 	@Override
 	public void doDepositOrWithdraw(int id) {
-		DepositOrWithdraw depositOrWithdraw = depositOrWithdrawRepo.getById(id);
+		Optional<DepositOrWithdraw> depositOrWithdrawOpt = depositOrWithdrawRepo.findById(id);
+		DepositOrWithdraw depositOrWithdraw = null;
+		if(depositOrWithdrawOpt != null)
+			 depositOrWithdraw = depositOrWithdrawOpt.get();
 		TransferDetailPOJO transferDetails = new TransferDetailPOJO();
 		transferDetails.setFromAccNo(depositOrWithdraw.getAccountNum());
 		transferDetails.setToAccNo(0);
@@ -92,7 +95,10 @@ public class DepositOrWithdrawServiceImpl implements DepositOrWithdrawService {
 
 	@Override
 	public void cancelDepositOrWithdraw(int id) {
-		DepositOrWithdraw depositOrWithdraw = depositOrWithdrawRepo.getById(id);
+		Optional<DepositOrWithdraw> depositOrWithdrawOpt = depositOrWithdrawRepo.findById(id);
+		DepositOrWithdraw depositOrWithdraw = null;
+		if(depositOrWithdrawOpt != null)
+			 depositOrWithdraw = depositOrWithdrawOpt.get();
 		depositOrWithdraw.setRequestApprovedDate(new Date());
 		depositOrWithdraw.setStatus("Rejected");
 		depositOrWithdrawRepo.save(depositOrWithdraw);
